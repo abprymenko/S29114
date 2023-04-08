@@ -1,6 +1,11 @@
-import sqlite3
-conn = sqlite3.connect('itstep.db')
-curs = conn.cursor()
+#import sqlite3
+#from collections import namedtuple
+from students import Student
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+import pandas as pd
+# conn = sqlite3.connect('itstep.db')
+# curs = conn.cursor()
 
 #create
 #curs.execute('CREATE TABLE students (id INT PRIMARY KEY, name VARCHAR(20), age INT, avg_grade FLOAT)')
@@ -17,15 +22,35 @@ curs = conn.cursor()
 # conn.commit()
 
 
-#select
-
-curs.execute('SELECT name, age FROM students')
+#select 1
+'''
+fields = ["id", "name", "age", "avg_grade"]
+student = namedtuple('Student', fields)
+curs.execute('SELECT * FROM students')
 conn.commit()
-rows = curs.fetchall()
-print(rows)
-print(type(rows))
-print(type(rows[0]))
-
-
+# rows = curs.fetchall()
+# print(rows)
+# print(type(rows))#list
+# print(type(rows[0]))#tuple
+students = []
+for row in curs.fetchall():
+    students.append(student(*row))
+print(students)
 curs.close()
 conn.close()
+'''
+#select 2
+#create object for connect to database
+engine = create_engine('sqlite:///itstep.db', echo=True)
+#create session for work with database
+Session = sessionmaker(bind=engine)
+session = Session()
+students = session.query(Student).all()
+for st in students:
+    print(f'Id={st.id}\t'
+          f'Name={st.name}\t'
+          f'Age={st.age}\t'
+          f'Avg Grage={st.avg_grade}\n')
+# df = pd.DataFrame.from_records([data.__dict__ for data in students])
+# print(df)
+session.close()

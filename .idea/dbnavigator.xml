@@ -20,9 +20,7 @@
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="f8f38345-e157-4d1f-9bdf-48fc148c6286" object-ref="schemas/main/tables/students" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="f8f38345-e157-4d1f-9bdf-48fc148c6286" dataset="main.students" active-filter-id="EMPTY_FILTER" />
